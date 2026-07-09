@@ -1,0 +1,53 @@
+.logo-container {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+.logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+.logo-container h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f39c12;
+  text-shadow: 2px 2px 0 #f1c40f;
+  margin: 0;
+}
+.logo-container p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-top: -5px;
+}
+ion-segment {
+  --background: #fff3e0;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+ion-segment-button {
+  --color-checked: #f39c12;
+  --indicator-color: #f39c12;
+  font-weight: bold;
+}
+ion-item {
+  --background: #fffefc;
+  --border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+ion-button {
+  margin-top: 20px;
+  --background: #2ecc71;
+  --background-activated: #27ae60;
+  font-size: 1.3rem;
+  height: 56px;
+}
+.error-message {
+  color: #e74c3c;
+  background: #fde0e0;
+  padding: 10px;
+  border-radius: 30px;
+  text-align: center;
+  margin-top: 12px;
+  font-weight: bold;
+}

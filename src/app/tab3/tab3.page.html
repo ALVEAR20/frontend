@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+      Mi perfil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngIf="user" class="profile-card">
+    <ion-card-header>
+      <ion-avatar class="profile-avatar">
+        <ion-icon name="person-circle" size="large"></ion-icon>
+      </ion-avatar>
+      <ion-card-title>{{ user.username }}</ion-card-title>
+      <ion-card-subtitle>{{ user.email }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="score-box">
+        <ion-icon name="trophy-outline" color="warning"></ion-icon>
+        <span class="score-number">{{ user.score || 0 }}</span>
+        <span class="score-label">puntos</span>
+      </div>
+
+      <div class="rewards-section">
+        <h3>
+          <ion-icon name="gift-outline" color="secondary"></ion-icon>
+          Recompensas
+        </h3>
+        <ion-list *ngIf="user.rewards && user.rewards.length > 0; else noRewards">
+          <ion-item *ngFor="let reward of user.rewards" class="reward-item">
+            <ion-icon name="star" color="warning" slot="start"></ion-icon>
+            <ion-label>{{ reward }}</ion-label>
+          </ion-item>
+        </ion-list>
+        <ng-template #noRewards>
+          <p class="empty-rewards">🎈 Aún no tienes recompensas. ¡Sigue jugando!</p>
+        </ng-template>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

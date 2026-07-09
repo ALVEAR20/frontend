@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="school-outline" slot="start"></ion-icon>
+      ¡Bienvenido! 🎈
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="logo-container">
+    <img src="assets/icon/shapes.svg" alt="Logo" class="logo">
+    <h1>MateKids</h1>
+    <p>Aprende jugando</p>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="person-circle-outline" color="primary"></ion-icon>
+        {{ authMode === 'login' ? 'Iniciar sesión' : 'Registrarse' }}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-segment [(ngModel)]="authMode" (ionChange)="switchMode()" mode="md">
+        <ion-segment-button value="login">
+          <ion-label>Entrar</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="register">
+          <ion-label>Registrarme</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">
+            <ion-icon name="mail-outline" slot="start"></ion-icon> Email
+          </ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="authMode === 'register'">
+          <ion-label position="floating">
+            <ion-icon name="person-outline" slot="start"></ion-icon> Usuario
+          </ion-label>
+          <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon> Contraseña
+          </ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" [disabled]="authForm.invalid" shape="round" color="success">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          {{ authMode === 'login' ? '¡Vamos a jugar!' : 'Crear cuenta' }}
+        </ion-button>
+      </form>
+
+      <div *ngIf="errorMessage" class="error-message">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMessage }}
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="game-controller-outline" slot="start"></ion-icon>
+      ¡Matemáticas!
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="light">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="!gameOver; else gameOverTemplate">
+    <ion-card class="game-card">
+      <ion-card-header>
+        <ion-card-title class="question-number">
+          Pregunta {{ currentQuestionIndex + 1 }} de {{ totalQuestions }}
+        </ion-card-title>
+        <ion-card-subtitle class="score-display">
+          <ion-icon name="star-outline" color="warning"></ion-icon>
+          Puntuación: {{ score }} puntos
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="question-text">
+          {{ currentQuestion?.text }}
+        </div>
+
+        <ion-list class="options-list">
+          <ion-radio-group [(ngModel)]="selectedOption" (ionChange)="onOptionSelected()">
+            <ion-item *ngFor="let option of currentQuestion?.options; let i = index"
+              class="option-item"
+              [class.selected]="selectedOption === option"
+              [class.correct-answer]="answered && option === currentQuestion?.correctAnswer"
+              [class.wrong-answer]="answered && selectedOption === option && option !== currentQuestion?.correctAnswer">
+              <ion-radio [value]="option" [disabled]="answered"></ion-radio>
+              <ion-label>{{ option }}</ion-label>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+
+        <ion-button expand="block" (click)="nextQuestion()" [disabled]="!answered || selectedOption === null" shape="round" color="primary">
+          {{ currentQuestionIndex < totalQuestions - 1 ? 'Siguiente ➜' : 'Ver resultado 🏆' }}
+        </ion-button>
+
+        <div *ngIf="feedback" class="feedback" [class.correct]="feedbackCorrect" [class.incorrect]="!feedbackCorrect">
+          <ion-icon [name]="feedbackCorrect ? 'happy-outline' : 'sad-outline'"></ion-icon>
+          {{ feedback }}
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #gameOverTemplate>
+    <ion-card class="game-over-card">
+      <ion-card-header>
+        <ion-card-title>🎉 ¡Juego terminado! 🎉</ion-card-title>
+        <ion-card-subtitle>Tu puntuación final: {{ score }} puntos</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Respuestas correctas: {{ correctAnswers }} de {{ totalQuestions }}</p>
+        <ion-button expand="block" (click)="resetGame()" shape="round" color="success">
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Jugar de nuevo
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>
